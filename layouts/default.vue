@@ -1,18 +1,8 @@
 <template>
-  <div>
-    <header>
-      <div class="container">
-        <HeaderNavigation/>
-        <slot />
-      </div>
-    </header>
+  <div class="container">
+    <HeaderNavigation />
+    <main>
+      <slot />
+    </main>
   </div>
 </template>
-
-<script setup>
-// Логика компонента
-</script>
-
-<style scoped>
-/* Стили */
-</style>
