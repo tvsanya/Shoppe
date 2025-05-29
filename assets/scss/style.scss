@@ -1,6 +1,8 @@
-@use "./fonts.scss" as *;
-@use "./reset.scss" as *;
-@use "./variables.scss" as *;
+@use "fonts" as *;
+@use "reset" as *;
+@use "variables" as *;
+@use "mixins" as *;
+@use "placeholders" as *;
 
 .container {
   width: 100%;

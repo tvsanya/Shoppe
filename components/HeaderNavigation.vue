@@ -1,9 +1,7 @@
 <template>
   <header>
     <div class="header__top" :class="{ 'has-border': !isHomePage }">
-      <NuxtLink to="/" class="header__top-logo">
-        <img src="~/assets/image/logo/SHOPPE.png" alt="SHOPPE" />
-      </NuxtLink>
+      <HeaderLogo />
       <nav class="header__top-nav">
         <NavPageList />
         <span>|</span>
