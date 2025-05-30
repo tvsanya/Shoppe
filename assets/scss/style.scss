@@ -1,0 +1,21 @@
+@use "fonts" as *;
+@use "reset" as *;
+@use "variables" as *;
+@use "mixins" as *;
+@use "placeholders" as *;
+
+.container {
+  width: 100%;
+  margin: 0 auto;
+  max-width: 1440px;
+  padding: 0 96px;
+
+  @media (min-width: $breakpoints-m) {
+  }
+  @media (min-width: $breakpoints-l) {
+  }
+  @media (min-width: $breakpoints-xl) {
+  }
+  @media (min-width: $breakpoints-xxl) {
+  }
+}
