@@ -1,36 +1,69 @@
 <template>
   <form class="footer__form" novalidate @submit.prevent="saveEmail">
-    <input
+    <DefaultInput
       v-model="email"
       type="email"
       name="email"
       placeholder="Give an email, get the newsletter."
-      required
+      :required="true"
+      :message="error || success"
+      :variant="success ? 'success' : error ? 'error' : undefined"
       @input="clearMessage"
     />
-    <EmailError v-if="error" :message="error" />
-    <EmailSuccess v-if="success" :message="success" />
-    <button class="form__submit" type="submit">
-      <img src="/public/icons/arrow-right.svg" alt="" />
+    <button class="footer__submit-btn" type="submit">
+      <ArrowRight />
     </button>
-    <span class="form_line"></span>
+    <span class="footer__form-line"></span>
+    <FormCheckbox
+      v-if="isMobile"
+      v-model="agreed"
+      :error="agreementError"
+      label="i agree to the website’s terms and conditions"
+    />
   </form>
 </template>
 
-<script setup>
-import { ref } from "vue";
-import EmailError from "./EmailError.vue";
-import EmailSuccess from "./EmailSuccess.vue";
+<script lang="ts" setup>
+import { ref, watch } from "vue";
+import DefaultInput from "@/components/DefaultInput.vue";
 
-const email = ref("");
-const error = ref("");
-const success = ref("");
+type Email = string;
+type ErrorMessage = string;
+type SuccessMessage = string;
+type StoredEmails = Email[];
+type Agreed = boolean;
+type AgreementError = string;
 
-const clearMessage = () => {
+const email = ref<Email>("");
+const error = ref<ErrorMessage>("");
+const success = ref<SuccessMessage>("");
+const agreed = ref<Agreed>(false);
+const agreementError = ref<AgreementError>("");
+const isMobile = ref(false);
+
+watch(agreed, (newValue) => {
+  agreementError.value = "";
+});
+
+const checkMobile = () => {
+  isMobile.value = window.innerWidth < 768;
+};
+
+onMounted(() => {
+  checkMobile();
+  window.addEventListener("resize", checkMobile);
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener("resize", checkMobile);
+});
+
+const clearMessage = (): void => {
   error.value = "";
   success.value = "";
 };
-const validateEmail = () => {
+
+const validateEmail = (): boolean => {
   if (!email.value) {
     error.value = "Поле пустое";
     return false;
@@ -51,13 +84,26 @@ const validateEmail = () => {
   return true;
 };
 
-const saveEmail = () => {
-  if (!validateEmail()) return;
-  try {
-    const normalizedEmail = email.value.trim().toLowerCase();
-    const storedEmails = JSON.parse(localStorage.getItem("Emails")) || [];
+const saveEmail = (): void => {
+  error.value = "";
+  agreementError.value = "";
+  success.value = "";
 
-    if (storedEmails.some((e) => e.toLowerCase() === normalizedEmail)) {
+  if (isMobile.value && !agreed.value) {
+    agreementError.value =
+      "Вы должны дать согласие на условия использования сайта";
+    return;
+  }
+
+  if (!validateEmail()) return;
+
+  try {
+    const normalizedEmail: Email = email.value.trim().toLowerCase();
+    const storedEmails: StoredEmails = JSON.parse(
+      localStorage.getItem("Emails") || "[]"
+    );
+
+    if (storedEmails.some((e: Email) => e.toLowerCase() === normalizedEmail)) {
       error.value = "Этот email уже был подписан на рассылку";
       return;
     }
@@ -67,47 +113,45 @@ const saveEmail = () => {
 
     success.value = "Спасибо! Вы успешно подписались на рассылку.";
     email.value = "";
-    error.value = "";
+    if (isMobile.value) {
+      agreed.value = false;
+    }
+
     setTimeout(() => {
       success.value = "";
     }, 5000);
-  } catch (error) {
+  } catch (err) {
     error.value = "Произошла ошибка. Пожалуйста, попробуйте позже.";
+    console.error("Ошибка при сохранении email:", err);
   }
 };
 </script>
 
 <style lang="scss" scoped>
 .footer__form {
+  @include h5(#707070);
   display: flex;
   max-width: 396px;
   flex-wrap: wrap;
   position: relative;
-  @include h5(#707070);
-  input {
-    width: 371px;
-  }
-  .input__message {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    font-size: 12px;
-    margin-top: 5px;
-    font-style: $font-family;
-    font-size: 14px;
-    transition: all 0.3s;
-  }
-
-  .form__submit {
+  .footer__submit-btn {
     background-color: transparent;
     display: flex;
     align-items: center;
   }
-  .form_line {
+  .footer__form-line {
     border: 1px solid #000000;
     width: 396px;
     height: 1px;
-    margin-top: 13px;
+    margin-top: 14px;
+  }
+}
+@media (max-width: $breakpoints-s) {
+  .footer__form {
+    max-width: 288px;
+    .footer__form-line {
+      width: 100%;
+    }
   }
 }
 </style>

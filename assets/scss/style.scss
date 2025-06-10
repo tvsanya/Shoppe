@@ -10,12 +10,17 @@
   max-width: 1440px;
   padding: 0 96px;
 
-  @media (min-width: $breakpoints-m) {
+  
+  @media (min-width: $breakpoints-xxl) {
+  }
+  @media (max-width: $breakpoints-xl) {
+    padding: 0 32px;
   }
   @media (min-width: $breakpoints-l) {
   }
-  @media (min-width: $breakpoints-xl) {
+  @media (min-width: $breakpoints-m) {
   }
-  @media (min-width: $breakpoints-xxl) {
+  @media (max-width: $breakpoints-s) {
+    padding: 0 16px;
   }
 }
