@@ -1,78 +1,93 @@
 <template>
-  <div
-    class="search__container"
-    :class="{ 'search__container--active': isOpen || isMobile }"
-  >
-    <button class="search__button">
-      <SearchInputComp />
-    </button>
-    <input
-      class="search__input"
-      type="text"
-      placeholder="Search"
-      @keyup.esc="closeSearch"
-    />
-  </div>
+    <div class="search__container" v-if="isSearchVisible">
+        <button class="search__button">
+            <SearchInputComp />
+        </button>
+        <input
+            ref="searchInput"
+            class="search__input"
+            type="text"
+            placeholder="Search"
+            @blur="closeSearch"
+            @keyup.esc="handleEsc"
+        />
+    </div>
 </template>
 
 <script lang="ts" setup>
-const props = defineProps({
-  isOpen: Boolean,
-  isMobile: Boolean,
-});
-const emit = defineEmits(["close"]);
-const inputRef = ref<HTMLInputElement | null>(null);
+import { ref, watch } from 'vue'
+
+interface Props {
+    isMobile?: boolean
+}
+
+const props = withDefaults(defineProps<Props>(), {
+    isMobile: false,
+})
+
+const emit = defineEmits<{
+    (e: 'close'): void
+}>()
+
+const searchInput = ref<HTMLInputElement | null>(null)
+const isSearchVisible = ref(true)
+
+const handleEsc = () => {
+    if (!props.isMobile) {
+        emit('close')
+    }
+}
+
+const closeSearch = () => {
+    if (!props.isMobile) {
+        isSearchVisible.value = false
+        emit('close')
+    }
+}
 
 watch(
-  () => props.isOpen,
-  (newVal) => {
-    if (
-      newVal &&
-      !props.isMobile &&
-      inputRef.value &&
-      typeof window !== "undefined"
-    ) {
-      (inputRef.value as HTMLInputElement).focus();
-    }
-  }
-);
-const closeSearch = () => {
-  if (!props.isMobile) {
-    emit("close");
-  }
-};
+    () => props.isMobile,
+    (newVal) => {
+        if (newVal) {
+            isSearchVisible.value = true
+            if (searchInput.value) {
+                searchInput.value.focus()
+            }
+        }
+    },
+    { immediate: true }
+)
 </script>
 
 <style lang="scss" scoped>
 .search__container {
-  @include body_medium(#707070);
-  display: none;
-  background-color: #efefef;
-  height: 32px;
-  border-radius: 4px;
-  padding-left: 10px;
-  gap: 8px;
-  align-items: center;
-  margin-top: 18px;
-  .search__button {
-    background-color: transparent;
-    svg path {
-      fill: none;
-      color: #707070;
-    }
-  }
-  .search__input {
-    background: transparent;
-    width: 100%;
-    height: 100%;
-  }
-  &--active {
+    @include body_medium(#707070);
     display: flex;
-  }
-}
-@media (max-width: $breakpoints-m) {
-  .search__container {
-    margin-top: 4px;
-  }
+    background-color: #efefef;
+    height: 32px;
+    border-radius: 4px;
+    padding-left: 10px;
+    gap: 8px;
+    align-items: center;
+    margin-top: 10px;
+
+    @media (max-width: $breakpoints-m) {
+        margin-top: 4px;
+    }
+
+    .search__button {
+        background-color: transparent;
+
+        svg path {
+            fill: none;
+            color: #707070;
+        }
+    }
+
+    .search__input {
+        background: transparent;
+        width: 100%;
+        height: 100%;
+    }
 }
 </style>

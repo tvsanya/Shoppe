@@ -1,8 +1,8 @@
-@use "fonts" as *;
-@use "reset" as *;
-@use "variables" as *;
-@use "mixins" as *;
-@use "placeholders" as *;
+@use 'fonts' as *;
+@use 'reset' as *;
+@use 'variables' as *;
+@use 'mixins' as *;
+@use 'placeholders' as *;
 
 .container {
   width: 100%;
@@ -10,15 +10,8 @@
   max-width: 1440px;
   padding: 0 96px;
 
-  
-  @media (min-width: $breakpoints-xxl) {
-  }
   @media (max-width: $breakpoints-xl) {
     padding: 0 32px;
-  }
-  @media (min-width: $breakpoints-l) {
-  }
-  @media (min-width: $breakpoints-m) {
   }
   @media (max-width: $breakpoints-s) {
     padding: 0 16px;
