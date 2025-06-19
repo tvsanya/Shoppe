@@ -1,7 +1,5 @@
 <template>
-  <div>
-    search
-  </div>
+  <SearchPopup/>
 </template>
 
 <script setup>

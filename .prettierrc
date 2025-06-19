@@ -1,0 +1,25 @@
+{
+  "printWidth": 100,
+  "endOfLine": "auto",
+  "singleQuote": true,
+  "trailingComma": "es5",
+  "semi": true,
+  "bracketSpacing": true,
+  "overrides": [
+    {
+      "files": ["*.js", "*.ts", "*.vue"],
+      "options": {
+        "tabWidth": 4,
+        "useTabs": false,
+        "semi": false
+      }
+    },
+    {
+      "files": ["*.css", "*.scss", "*.sass"],
+      "options": {
+        "tabWidth": 2,
+        "useTabs": false
+      }
+    }
+  ]
+}
