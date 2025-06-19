@@ -69,7 +69,7 @@ watch(
     padding-left: 10px;
     gap: 8px;
     align-items: center;
-    margin-top: 10px;
+    margin: 10px 0 16px;
 
     @media (max-width: $breakpoints-m) {
         margin-top: 4px;

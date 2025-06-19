@@ -27,3 +27,12 @@
     border-color 0.5s ease,
     color 0.5s ease;
 }
+
+%button-black {
+  border-radius: 4px;
+  background-color: #000;
+  color: #fff;
+  font-family: $font-family;
+  font-weight: 700;
+  font-size: 16px;
+}
