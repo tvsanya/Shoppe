@@ -1,5 +1,5 @@
 <template>
-    <div class="search__container" v-if="isSearchVisible">
+    <div v-if="isSearchVisible" class="search__container">
         <button class="search__button">
             <SearchInputComp />
         </button>

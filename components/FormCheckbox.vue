@@ -17,25 +17,21 @@
     </div>
 </template>
 
-<script setup>
-const props = defineProps({
-    modelValue: {
-        type: Boolean,
-        default: false,
-    },
-    label: {
-        type: String,
-        default: 'i agree to the website’s terms and conditions',
-    },
-    error: {
-        type: String,
-        default: '',
-    },
+<script lang="ts" setup>
+interface Props {
+    modelValue?: boolean
+    label?: string
+    error?: string
+}
+const props = withDefaults(defineProps<Props>(), {
+    modelValue: false,
+    label: 'i agree to the website’s terms and conditions',
+    error: '',
 })
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits<{ 'update:modelValue': [value: boolean] }>()
 const internalValue = computed({
     get: () => props.modelValue,
-    set: (value) => emit('update:modelValue', value),
+    set: (value: boolean) => emit('update:modelValue', value),
 })
 </script>
 
