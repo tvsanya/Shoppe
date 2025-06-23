@@ -1,9 +1,9 @@
 <template>
     <main>
-        <SliderComp />
+        <MainCarousel />
     </main>
 </template>
 
 <script setup>
-import SliderComp from '@/components/SliderComp.vue'
+import MainCarousel from '@/components/MainCarousel.vue';
 </script>

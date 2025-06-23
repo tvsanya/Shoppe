@@ -1,16 +1,16 @@
 <template>
     <div class="slider__slide-item">
-        <SliderImg :src="image" :alt="title" />
+        <CarouselImg :src="props.image" :alt="props.title" />
         <div class="item__content">
             <div class="item__content-title">Gold big hoops</div>
             <div class="item__content-price">$ 68,00</div>
-            <button class="item__content-btn">View Product</button>
+            <BaseButton type="primary" class="item__content-btn">View Product</BaseButton>
         </div>
     </div>
 </template>
 
 <script lang="ts" setup>
-import SliderImg from '@/components/SliderImg.vue'
+import CarouselImg from '@/components/CarouselImg.vue'
 
 interface Props {
     image: string
@@ -76,9 +76,8 @@ const props = defineProps<Props>()
         }
 
         &-btn {
-            @include button-white(2px solid #fff, 6px, #ffffff);
             margin-top: 48px;
-
+            transition: all 0.3s;
             @media (max-width: $breakpoints-l) {
                 font-size: 16px;
                 margin-top: 14px;

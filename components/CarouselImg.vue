@@ -11,13 +11,13 @@
 
 <script lang="ts" setup>
 interface Props {
-    image?: string 
-    alt?: string    
+    image?: string
+    alt?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
     image: '',
-    alt: ''
+    alt: '',
 })
 
 const loading = ref(false)
@@ -34,7 +34,7 @@ const handleError = () => {
 .slider__slide-img {
     width: 100%;
     border-radius: 16px;
-
+    object-fit: cover;
     @media (max-width: $breakpoints-m) {
         height: 274px;
     }
