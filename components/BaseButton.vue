@@ -1,9 +1,11 @@
 <template>
     <button
         :class="['base-button', `base-button--${type}`]"
-        :style="buttonStyles"
-        @mouseenter="isHover = true"
-        @mouseleave="isHover = false"
+        :style="{
+            borderWidth,
+            borderStyle,
+            borderRadius
+        }"
     >
         <slot></slot>
     </button>
@@ -23,27 +25,6 @@ const props = withDefaults(defineProps<Props>(), {
     borderStyle: 'solid',
     borderWidth: '2px',
 })
-
-const isHover = ref(false)
-
-const buttonStyles = computed(() => {
-    const borderColor = isHover.value
-        ? props.type === 'primary'
-            ? '#000000'
-            : 'ffffff'
-        : props.type === 'primary'
-          ? '#ffffff'
-          : '#000000'
-
-    const textColor = isHover.value ? '#ffffff' : props.type === 'primary' ? '#ffffff' : '#000000'
-
-    return {
-        border: `${props.borderWidth} ${props.borderStyle} ${borderColor}`,
-        borderRadius: props.borderRadius,
-        color: textColor,
-        backgroundColor: isHover.value ? '#000000' : 'transparent',
-    }
-})
 </script>
 
 <style lang="scss" scoped>
@@ -57,14 +38,24 @@ const buttonStyles = computed(() => {
     cursor: pointer;
 
     &--primary {
+        color: #ffffff;
+        border-color: #ffffff;
+        background-color: transparent;
         &:hover {
             background-color: #000000;
+            color: #ffffff;
+            border-color: #000000;
         }
     }
 
     &--secondary {
         border-color: #000000;
         color: #ffffff;
+        &:hover{
+            background-color: #000000;
+            color: #ffffff;
+            border-color: #000000;
+        }
     }
 }
 </style>
