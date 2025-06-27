@@ -6,7 +6,7 @@
         <li v-for="item in catalogItems" :key="item.id" class="shop__catalog-item">
             <CatalogImg v-if="item.image" :image="item.image" :alt="item.title" />
             <h3 class="shop__catalog-item-title">{{ item.title }}</h3>
-            <h4 :key="id" class="shop__catalog-item-price">$ {{ formatPrice(item.price) }}</h4>
+            <h4 :key="item.id" class="shop__catalog-item-price">$ {{ formatPrice(item.price) }}</h4>
         </li>
     </ul>
 </template>
