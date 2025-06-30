@@ -4,6 +4,12 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: ["@nuxt/eslint", "@nuxt/image"],
   css: ["@/assets/scss/style.scss"],
+  runtimeConfig: {
+    public: {
+      apiBaseUrl: process.env.NUXT_PUBLIC_API_BASE_URL ,
+      apiProductsEndpoint: process.env.NUXT_PUBLIC_API_PRODUCTS_ENDPOINT
+    }
+  },
   vite: {
     css: {
       preprocessorOptions: {

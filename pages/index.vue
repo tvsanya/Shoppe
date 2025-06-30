@@ -1,9 +1,6 @@
 <template>
     <main>
         <MainCarousel />
+        <MainCatalog />
     </main>
 </template>
-
-<script setup>
-import MainCarousel from '@/components/MainCarousel.vue';
-</script>
