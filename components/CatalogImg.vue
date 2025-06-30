@@ -1,11 +1,7 @@
 <template>
-    <div
-        class="catalog__item-image-box"
-        @mouseenter="isHovered = true"
-        @mouseleave="isHovered = false"
-    >
+    <div class="catalog__item-image-box">
         <img :src="props.image" :alt="props.alt" class="catalog__item-img" />
-        <CatalogImgBtn :isVisible="isHovered" />
+        <CatalogImgBtn class="catalog__button" />
     </div>
 </template>
 
@@ -19,8 +15,6 @@ const props = withDefaults(defineProps<Props>(), {
     image: '',
     alt: '',
 })
-
-const isHovered = ref(false)
 </script>
 
 <style lang="scss" scoped>
@@ -30,6 +24,13 @@ const isHovered = ref(false)
     max-height: 380px;
     width: 100%;
     height: 100%;
+
+    &:hover {
+        .catalog__button {
+            background: rgba(255, 255, 255, 0.5);
+            opacity: 1;
+        }
+    }
 
     @media (max-width: $breakpoints-xl) {
         max-height: 270px;
@@ -51,26 +52,5 @@ const isHovered = ref(false)
         object-fit: contain;
         border-radius: 8px;
     }
-
-    // &::after{
-    //     @include body_large(#000000);
-    //     content: 'ADD TO CART';
-    //     position: absolute;
-    //     bottom: 0;
-    //     left: 0;
-    //     width: 100%;
-    //     height: 66px;
-    //     display: none;
-    //     justify-content: center;
-    //     align-items: center;
-    //     background: rgba($color: #ffffff, $alpha: 0.5);
-    //     border-radius: 0 0 6px 6px;
-    // }
-
-    // &:hover{
-    //     &::after{
-    //         display: flex;
-    //     }
-    // }
 }
 </style>

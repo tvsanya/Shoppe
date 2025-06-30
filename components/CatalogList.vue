@@ -3,18 +3,21 @@
     <div v-else-if="error" class="error">{{ error }}</div>
 
     <ul class="shop__catalog-list">
-        <li v-for="item in catalogItems" :key="item.id" class="shop__catalog-item">
-            <CatalogImg v-if="item.image" :image="item.image" :alt="item.title" />
-            <h3 class="shop__catalog-item-title">{{ item.title }}</h3>
-            <h4 :key="item.id" class="shop__catalog-item-price">$ {{ formatPrice(item.price) }}</h4>
-        </li>
+        <CatalogItem
+            v-for="item in catalogItems"
+            :key="item.id"
+            :image="item.image"
+            :title="item.title"
+            :price="item.price"
+        />
     </ul>
 </template>
 
 <script setup>
 import { useCatalogApi } from '@/composables/useCatalog'
+import CatalogItem from '@/components/CatalogItem.vue'
 
-const { catalogItems, isLoading, error, fetchCatalogItems, formatPrice } = useCatalogApi()
+const { catalogItems, isLoading, error, fetchCatalogItems } = useCatalogApi()
 
 onMounted(() => {
     fetchCatalogItems(6)
@@ -34,50 +37,6 @@ onMounted(() => {
     @media (max-width: $breakpoints-s) {
         grid-template: repeat(2, auto) / repeat(2, auto);
         gap: 24px 16px;
-    }
-
-    .shop__catalog-item {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-        max-width: 380px;
-        width: 100%;
-
-        @media (max-width: $breakpoints-l) {
-            gap: 16px;
-        }
-
-        @media (max-width: $breakpoints-s) {
-            gap: 6px;
-        }
-
-        &-title {
-            @include h3(#000000);
-            overflow: hidden;
-            display: -webkit-box;
-            -webkit-line-clamp: 1;
-            -webkit-box-orient: vertical;
-
-            @media (max-width: $breakpoints-l) {
-                font-size: 18px;
-            }
-
-            @media (max-width: $breakpoints-s) {
-                @include body_medium(#000000);
-            }
-        }
-
-        &-price {
-            @extend %h4;
-
-            @media (max-width: $breakpoints-l) {
-                font-size: 16px;
-            }
-
-            @media (max-width: $breakpoints-s) {
-                @include body_small(#a18a68);
-            }
-        }
     }
 }
 </style>
