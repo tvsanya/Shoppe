@@ -20,8 +20,8 @@ const props = withDefaults(defineProps<Props>(), {
 <style lang="scss" scoped>
 .catalog__item-image-box {
     position: relative;
-    max-width: 380px;
-    max-height: 380px;
+    max-width: var(--img-max-width, 380px);
+    max-height: var(--img-max-heigth, 380px);
     width: 100%;
     height: 100%;
 

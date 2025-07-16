@@ -1,3 +1,3 @@
 <template>
-  <div>Shop</div>
+  <ShopCatalog/>
 </template>

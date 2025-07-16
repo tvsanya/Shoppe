@@ -1,28 +1,35 @@
 // @ts-check
-import nuxtEslintConfig from '@nuxt/eslint-config/flat' // Для Nuxt 3
-import prettierConfig from 'eslint-config-prettier'
+import { defineFlatConfigs } from '@nuxt/eslint-config/flat';
+import pluginPrettier from 'eslint-plugin-prettier';
+import configPrettier from 'eslint-config-prettier';
 
-export default [
-  // Базовые настройки Nuxt
-  ...nuxtEslintConfig,
-  
-  // Ваши кастомные правила
+export default defineFlatConfigs([
+  // 1. Базовые настройки Nuxt для TypeScript
+  {
+    languageOptions: {
+      parserOptions: {
+        project: './tsconfig.json', // Указывает на ваш tsconfig
+      },
+    },
+  },
+
+  // 2. Ваши кастомные правила
   {
     rules: {
-      'vue/multi-word-component-names': 'off'
-    }
+      'vue/multi-word-component-names': 'off',
+    },
   },
-  
-  // Интеграция с Prettier
+
+  // 3. Интеграция с Prettier
   {
     plugins: {
-      prettier: await import('eslint-plugin-prettier')
+      prettier: pluginPrettier,
     },
     rules: {
-      'prettier/prettier': ['error']
-    }
+      'prettier/prettier': ['error'],
+    },
   },
-  
-  // Отключение конфликтующих правил
-  prettierConfig
-]
+
+  // 4. Отключение конфликтующих правил
+  configPrettier,
+]);

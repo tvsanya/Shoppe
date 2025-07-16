@@ -29,7 +29,7 @@ const emit = defineEmits<{
     position: relative;
     background-color: transparent;
     cursor: pointer;
-    z-index: 100;
+    z-index: 9;
     transition: transform 0.3s ease;
 
     .button__line {

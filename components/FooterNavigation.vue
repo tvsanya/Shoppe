@@ -44,7 +44,6 @@ import FooterDiscript from '@/components/FooterDiscript.vue'
         @media (max-width: $breakpoints-m) {
             display: none;
         }
-
     }
 
     &__container {
@@ -54,7 +53,7 @@ import FooterDiscript from '@/components/FooterDiscript.vue'
         gap: 58px;
         align-items: center;
         position: relative;
-        padding-bottom: 122px;
+        padding-bottom: 80px;
 
         @media (max-width: $breakpoints-m) {
             flex-direction: column;

@@ -49,10 +49,14 @@ const closeMenu = () => {
 .header__top {
     display: flex;
     justify-content: space-between;
-    padding-top: 64px;
+    padding-top: 48px;
     padding-bottom: 22px;
     position: relative;
     align-items: center;
+
+    @media (max-width: $breakpoints-s) {
+        padding-top: 16px;
+    }
 
     .header__top-nav {
         display: flex;
@@ -98,9 +102,9 @@ const closeMenu = () => {
             right: 0;
             width: 30%;
             height: 100%;
-            background: rgba(94, 93, 93, 0.7);
+            background: rgba(161, 138, 104, 0.9);
             padding: 108px 10px 40px;
-            z-index: 99;
+            z-index: 8;
             overflow-y: auto;
             display: flex;
             gap: 20px;
@@ -111,7 +115,7 @@ const closeMenu = () => {
 
             @media (max-width: $breakpoints-s) {
                 background-color: #ffffff;
-                top: 148px;
+                top: 102px;
                 width: 100%;
                 padding: 38px 16px 0 18px;
             }
