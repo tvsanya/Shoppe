@@ -21,7 +21,7 @@ const { formatPrice } = useCatalogApi()
     display: flex;
     flex-direction: column;
     gap: 20px;
-    max-width: 380px;
+    max-width: var(--item-max-width, 380px);
     width: 100%;
 
     @media (max-width: $breakpoints-l) {

@@ -18,11 +18,13 @@
   font-family: $font-family;
   font-weight: 600;
   font-size: 16px;
+  color: $color;
 }
 @mixin body-medium($color) {
   font-family: $font-family;
   font-weight: 400;
   font-size: 14px;
+  color: $color;
 }
 
 @mixin body-small($color) {
@@ -30,4 +32,5 @@
   font-weight: 400;
   font-size: 12px;
   line-height: 20px;
+  color: $color;
 }
