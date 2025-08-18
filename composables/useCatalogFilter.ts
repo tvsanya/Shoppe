@@ -1,5 +1,5 @@
 import { ref, watch, computed } from 'vue'
-import { debounce } from 'lodash'
+import { debounce } from 'lodash-es'
 import { useRoute, useRouter } from 'vue-router'
 import { useCatalogApi } from '@/composables/useCatalog'
 
