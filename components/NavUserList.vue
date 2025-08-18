@@ -26,174 +26,179 @@
 </template>
 
 <script lang="ts" setup>
-import type { DefineComponent } from 'vue'
-import SearchComp from '@/components/SearchComp.vue'
-import ShopCartComp from '@/components/ShopCartComp.vue'
-import ProfileComp from '@/components/ProfileComp.vue'
-import LogoutComp from '@/components/LogoutComp.vue'
+    import { computed } from 'vue'
+    import type { DefineComponent } from 'vue'
+    import SearchComp from '@/components/SearchComp.vue'
+    import ShopCartComp from '@/components/ShopCartComp.vue'
+    import ProfileComp from '@/components/ProfileComp.vue'
+    import LogoutComp from '@/components/LogoutComp.vue'
 
-type VueComponent = DefineComponent<{}, {}, any>
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    type VueComponent = DefineComponent<{}, {}, any>
 
-interface NavUser {
-    path: string
-    icon: VueComponent
-    alt?: string
-    showIn?: string[]
-    title?: string
-}
-
-const emit = defineEmits<{
-    (e: 'click'): void
-    (e: 'open-search'): void
-}>()
-
-const props = withDefaults(
-    defineProps<{
-        showAs?: 'desktop' | 'mobile'
-    }>(),
-    {
-        showAs: 'desktop',
+    interface NavUser {
+        path: string
+        icon: VueComponent
+        alt: string
+        showIn?: string[]
+        title?: string
     }
-)
 
-const normalizeNavUsers = (items: NavUser[]): Required<NavUser>[] => {
-    return items.map((item) => ({
-        ...item,
-        showIn: item.showIn ?? [],
-    }))
-}
+    const emit = defineEmits<{
+        (e: 'click'): void
+        (e: 'open-search'): void
+    }>()
 
-const navUser = normalizeNavUsers([
-    {
-        path: '/search',
-        icon: SearchComp,
-        alt: 'Search',
-        showIn: ['desktop', 'mobile'],
-    },
-    {
-        path: '/shopcart',
-        icon: ShopCartComp,
-        alt: 'ShopCart',
-        showIn: ['desktop', 'mobile'],
-    },
-    {
-        path: '/profile',
-        icon: ProfileComp,
-        alt: 'My account',
-        showIn: ['desktop', 'mobile'],
-        title: 'My account',
-    },
-    {
-        path: '/',
-        icon: LogoutComp,
-        alt: 'LogOut',
-        showIn: ['mobile'],
-        title: 'Logout',
-    },
-])
+    const props = withDefaults(
+        defineProps<{
+            showAs?: 'desktop' | 'mobile'
+        }>(),
+        {
+            showAs: 'desktop',
+        },
+    )
 
-const visibleItems = computed(() => {
-    return navUser.filter((item) => item.showIn.includes(props.showAs))
-})
-
-const handleClick = () => {
-    if (props.showAs === 'mobile') {
-        emit('click')
+    const normalizeNavUsers = (items: NavUser[]): Required<NavUser>[] => {
+        return items.map((item) => ({
+            path: item.path,
+            icon: item.icon,
+            alt: item.alt ?? '',
+            title: item.title ?? '',
+            showIn: item.showIn ?? [],
+        }))
     }
-}
 
-const openSearch = () => {
-    emit('open-search')
-}
+    const navUser = normalizeNavUsers([
+        {
+            path: '/search',
+            icon: SearchComp,
+            alt: 'Search',
+            showIn: ['desktop', 'mobile'],
+        },
+        {
+            path: '/shopcart',
+            icon: ShopCartComp,
+            alt: 'ShopCart',
+            showIn: ['desktop', 'mobile'],
+        },
+        {
+            path: '/profile',
+            icon: ProfileComp,
+            alt: 'My account',
+            showIn: ['desktop', 'mobile'],
+            title: 'My account',
+        },
+        {
+            path: '/',
+            icon: LogoutComp,
+            alt: 'LogOut',
+            showIn: ['mobile'],
+            title: 'Logout',
+        },
+    ])
+
+    const visibleItems = computed(() => {
+        return navUser.filter((item) => item.showIn.includes(props.showAs))
+    })
+
+    const handleClick = () => {
+        if (props.showAs === 'mobile') {
+            emit('click')
+        }
+    }
+
+    const openSearch = () => {
+        emit('open-search')
+    }
 </script>
 
 <style lang="scss" scoped>
-.header__nav-users-list {
-    display: flex;
-    gap: 38px;
-    align-items: center;
-    position: relative;
-
-    .header__users-item-link {
-        display: flex;
+    .header__nav-users-list {
         position: relative;
-        transition: all 0.3s ease;
-
-        .header__users-item-content {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            transition: all 0.3s;
-
-            .header__item-title {
-                @include h5(#000000);
-            }
-
-            &:hover {
-                transform: scale(1.1);
-            }
-        }
-
-        &.header__search-button {
-            background-color: transparent;
-        }
-
-        &:focus,
-        &:active {
-            &::after {
-                content: '';
-                position: absolute;
-                bottom: -22px;
-                left: 0;
-                height: 3px;
-                width: 24px;
-                background: #000000;
-                width: 24px;
-            }
-        }
-
-        img {
-            width: 100%;
-            height: auto;
-            object-fit: contain;
-        }
-    }
-}
-
-@media (max-width: $breakpoints-l) {
-    .header__nav-user-list--desktop {
-        .header__users-item {
-            &:nth-child(1),
-            &:nth-child(3) {
-                display: none;
-            }
-        }
-    }
-    .header__nav-user-list--mobile {
         display: flex;
-        flex-direction: column;
-        align-items: start;
-        gap: 24px;
+        gap: 38px;
+        align-items: center;
 
-        .header__users-item {
+        .header__users-item-link {
+            position: relative;
             display: flex;
-            gap: 10px;
-            flex-direction: column;
-            align-items: center;
+            transition: all 0.3s ease;
 
-            &:nth-child(1) {
-                display: none;
+            .header__users-item-content {
+                display: flex;
+                gap: 10px;
+                align-items: center;
+                justify-content: center;
+                transition: all 0.3s;
+
+                .header__item-title {
+                    @include h5(#000000);
+                }
+
+                &:hover {
+                    transform: scale(1.1);
+                }
             }
 
-            &:nth-child(2) {
-                display: none;
+            &.header__search-button {
+                background-color: transparent;
             }
 
-            &-link::after {
-                display: none;
+            &:focus,
+            &:active {
+                &::after {
+                    position: absolute;
+                    bottom: -22px;
+                    left: 0;
+                    width: 24px;
+                    height: 3px;
+                    content: '';
+                    background: #000000;
+                }
+            }
+
+            img {
+                width: 100%;
+                height: auto;
+                object-fit: contain;
             }
         }
     }
-}
+
+    @media (max-width: $breakpoints-l) {
+        .header__nav-user-list--desktop {
+            .header__users-item {
+                &:nth-child(1),
+                &:nth-child(3) {
+                    display: none;
+                }
+            }
+        }
+
+        .header__nav-user-list--mobile {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            align-items: start;
+
+            .header__users-item {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                align-items: center;
+
+                &:nth-child(1) {
+                    display: none;
+                }
+
+                &:nth-child(2) {
+                    display: none;
+                }
+
+                &-link::after {
+                    display: none;
+                }
+            }
+        }
+    }
 </style>

@@ -24,124 +24,124 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, watch } from 'vue'
-import DefaultInput from '@/components/DefaultInput.vue'
+    import { ref, watch, onMounted, onBeforeUnmount } from 'vue'
+    import DefaultInput from '@/components/DefaultInput.vue'
 
-const email = ref('')
-const error = ref('')
-const success = ref('')
-const agreed = ref(false)
-const agreementError = ref('')
-const isMobile = ref(false)
+    const email = ref('')
+    const error = ref('')
+    const success = ref('')
+    const agreed = ref(false)
+    const agreementError = ref('')
+    const isMobile = ref(false)
 
-watch(agreed, () => {
-    agreementError.value = ''
-})
+    watch(agreed, () => {
+        agreementError.value = ''
+    })
 
-const checkMobile = () => {
-    isMobile.value = window.innerWidth < 768
-}
-
-const clearMessage = () => {
-    error.value = ''
-    success.value = ''
-}
-
-const validateEmail = () => {
-    const value = email.value.trim()
-
-    if (!value) {
-        error.value = 'Поле пустое'
-        return false
+    const checkMobile = () => {
+        isMobile.value = window.innerWidth < 768
     }
 
-    if (!value.includes('@')) {
-        error.value =
-            'Адрес электронной почты должен содержать символ «@». Похоже, вы его пропустили.'
-        return false
+    const clearMessage = () => {
+        error.value = ''
+        success.value = ''
     }
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
-    if (!emailRegex.test(value)) {
-        error.value = 'Пожалуйста, введите действительный адрес электронной почты'
-        return false
-    }
+    const validateEmail = () => {
+        const value = email.value.trim()
 
-    return true
-}
-
-const saveEmail = async () => {
-    clearMessage()
-
-    if (isMobile.value && !agreed.value) {
-        agreementError.value = 'Вы должны дать согласие на условия использования сайта'
-        return
-    }
-    if (!validateEmail()) return
-
-    try {
-        const normalizedEmail: string = email.value.trim().toLowerCase()
-        const storedEmails: string[] = JSON.parse(localStorage.getItem('emails') || '[]')
-
-        if (storedEmails.includes(normalizedEmail)) {
-            error.value = 'Этот email уже был подписан на рассылку'
-            return
+        if (!value) {
+            error.value = 'Поле пустое'
+            return false
         }
 
-        storedEmails.push(normalizedEmail)
-        localStorage.setItem('emails', JSON.stringify(storedEmails))
+        if (!value.includes('@')) {
+            error.value =
+                'Адрес электронной почты должен содержать символ «@». Похоже, вы его пропустили.'
+            return false
+        }
 
-        success.value = 'Спасибо! Вы успешно подписались на рассылку.'
-        email.value = ''
-        agreed.value = false
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
+        if (!emailRegex.test(value)) {
+            error.value = 'Пожалуйста, введите действительный адрес электронной почты'
+            return false
+        }
 
-        setTimeout(clearMessage, 5000)
-    } catch (err) {
-        error.value = 'An error occurred. Please try again later.'
-        console.error('Subscription error:', err)
+        return true
     }
-}
 
-onMounted(() => {
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-})
+    const saveEmail = async () => {
+        clearMessage()
 
-onBeforeUnmount(() => {
-    window.removeEventListener('resize', checkMobile)
-})
+        if (isMobile.value && !agreed.value) {
+            agreementError.value = 'Вы должны дать согласие на условия использования сайта'
+            return
+        }
+        if (!validateEmail()) return
+
+        try {
+            const normalizedEmail: string = email.value.trim().toLowerCase()
+            const storedEmails: string[] = JSON.parse(localStorage.getItem('emails') || '[]')
+
+            if (storedEmails.includes(normalizedEmail)) {
+                error.value = 'Этот email уже был подписан на рассылку'
+                return
+            }
+
+            storedEmails.push(normalizedEmail)
+            localStorage.setItem('emails', JSON.stringify(storedEmails))
+
+            success.value = 'Спасибо! Вы успешно подписались на рассылку.'
+            email.value = ''
+            agreed.value = false
+
+            setTimeout(clearMessage, 5000)
+        } catch (err) {
+            error.value = 'An error occurred. Please try again later.'
+            console.error('Subscription error:', err)
+        }
+    }
+
+    onMounted(() => {
+        checkMobile()
+        window.addEventListener('resize', checkMobile)
+    })
+
+    onBeforeUnmount(() => {
+        window.removeEventListener('resize', checkMobile)
+    })
 </script>
 
 <style lang="scss" scoped>
-.footer__form {
-    display: flex;
-    max-width: 396px;
-    flex-wrap: wrap;
-    position: relative;
-
-    @media (max-width: $breakpoints-l) {
-        order: 1;
-    }
-
-    @media (max-width: $breakpoints-s) {
-        max-width: 288px;
-    }
-
-    .footer__submit-btn {
-        background-color: transparent;
+    .footer__form {
+        position: relative;
         display: flex;
-        align-items: center;
-    }
+        flex-wrap: wrap;
+        max-width: 396px;
 
-    .footer__form-line {
-        border: 1px solid #000000;
-        width: 396px;
-        height: 1px;
-        margin-top: 14px;
+        @media (max-width: $breakpoints-l) {
+            order: 1;
+        }
 
         @media (max-width: $breakpoints-s) {
-            width: 100%;
+            max-width: 288px;
+        }
+
+        .footer__submit-btn {
+            display: flex;
+            align-items: center;
+            background-color: transparent;
+        }
+
+        .footer__form-line {
+            width: 396px;
+            height: 1px;
+            margin-top: 14px;
+            border: 1px solid #000000;
+
+            @media (max-width: $breakpoints-s) {
+                width: 100%;
+            }
         }
     }
-}
 </style>

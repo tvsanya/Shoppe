@@ -1,25 +1,13 @@
 {
-  "printWidth": 100,
-  "endOfLine": "auto",
+  "$schema": "https://json.schemastore.org/prettierrc",
+  "semi": false,
+  "tabWidth": 4,
   "singleQuote": true,
-  "trailingComma": "es5",
-  "semi": true,
+  "printWidth": 100,
+  "trailingComma": "all",
+  "arrowParens": "always",
   "bracketSpacing": true,
-  "overrides": [
-    {
-      "files": ["*.js", "*.ts", "*.vue"],
-      "options": {
-        "tabWidth": 4,
-        "useTabs": false,
-        "semi": false
-      }
-    },
-    {
-      "files": ["*.css", "*.scss", "*.sass"],
-      "options": {
-        "tabWidth": 2,
-        "useTabs": false
-      }
-    }
-  ]
+  "endOfLine": "lf",
+  "htmlWhitespaceSensitivity": "css",
+  "vueIndentScriptAndStyle": true
 }

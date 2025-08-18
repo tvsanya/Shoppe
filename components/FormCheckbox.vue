@@ -18,43 +18,45 @@
 </template>
 
 <script lang="ts" setup>
-interface Props {
-    modelValue?: boolean
-    label?: string
-    error?: string
-}
-const props = withDefaults(defineProps<Props>(), {
-    modelValue: false,
-    label: 'i agree to the website’s terms and conditions',
-    error: '',
-})
-const emit = defineEmits<{ 'update:modelValue': [value: boolean] }>()
-const internalValue = computed({
-    get: () => props.modelValue,
-    set: (value: boolean) => emit('update:modelValue', value),
-})
+    import { computed } from 'vue'
+    interface Props {
+        modelValue?: boolean
+        label?: string
+        error?: string
+    }
+    const props = withDefaults(defineProps<Props>(), {
+        modelValue: false,
+        label: 'i agree to the website’s terms and conditions',
+        error: '',
+    })
+    const emit = defineEmits<{ 'update:modelValue': [value: boolean] }>()
+    const internalValue = computed({
+        get: () => props.modelValue,
+        set: (value: boolean) => emit('update:modelValue', value),
+    })
 </script>
 
 <style lang="scss" scoped>
-.form__checkbox-container {
-    margin-top: 10px;
-    display: flex;
-    flex-direction: column;
-
-    .form__checkbox-wrapper {
+    .form__checkbox-container {
         display: flex;
-        align-items: center;
-        gap: 4px;
+        flex-direction: column;
+        margin-top: 10px;
 
-        span {
-            @include body_small(#000000);
+        .form__checkbox-wrapper {
+            display: flex;
+            gap: 4px;
+            align-items: center;
+
+            span {
+                @include body_small(#000000);
+            }
+        }
+
+        .form__error-message {
+            @include h5(#ff5252);
+
+            margin-top: 8px;
+            font-size: 14px;
         }
     }
-
-    .form__error-message {
-        @include h5(#ff5252);
-        font-size: 14px;
-        margin-top: 8px;
-    }
-}
 </style>

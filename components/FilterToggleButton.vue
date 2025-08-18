@@ -6,28 +6,29 @@
 </template>
 
 <script lang="ts" setup>
-defineEmits<{
-    (e: 'toggle'): void
-}>()
+    import FiltersSvg from '@/components/icons/FiltersSvg.vue'
+    defineEmits<{
+        (e: 'toggle'): void
+    }>()
 </script>
 
 <style lang="scss" scoped>
-.filter__toggle {
-    color: #a18a68;
-    background: transparent;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 0 10px;
-    margin-bottom: 16px;
+    .filter__toggle {
+        display: flex;
+        gap: 0 10px;
+        align-items: center;
+        margin-bottom: 16px;
+        color: #a18a68;
+        cursor: pointer;
+        background: transparent;
 
-    .filter__icon {
-        width: 18px;
-        height: 18px;
-    }
+        .filter__icon {
+            width: 18px;
+            height: 18px;
+        }
 
-    @media (min-width: 769px) {
-        display: none;
+        @media (min-width: 769px) {
+            display: none;
+        }
     }
-}
 </style>

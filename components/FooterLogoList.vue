@@ -4,7 +4,7 @@
             <p class="logo__text">Follow us</p>
             <span class="logo__line" />
         </div>
-        <li v-for="(item, index) in FooterLinks" :key="index" class="footer__logo-item">
+        <li v-for="(item, index) in footerLinks" :key="index" class="footer__logo-item">
             <NuxtLink :to="item.path">
                 <img :src="item.icon" :alt="item.alt" />
             </NuxtLink>
@@ -13,53 +13,53 @@
 </template>
 
 <script lang="ts" setup>
-import Facebook from '@/public/icons/Facebook.svg'
-import Instagram from '@/public/icons/Instagram.svg'
-import Twitter from '@/public/icons/Twitter.svg'
+    import Facebook from '@/public/icons/Facebook.svg'
+    import Instagram from '@/public/icons/Instagram.svg'
+    import Twitter from '@/public/icons/Twitter.svg'
 
-interface SocialLink {
-    path: string
-    icon: string
-    alt: string
-}
+    interface SocialLink {
+        path: string
+        icon: string
+        alt: string
+    }
 
-const FooterLinks: SocialLink[] = [
-    { path: '/', icon: Facebook, alt: 'Facebook' },
-    { path: '/', icon: Instagram, alt: 'Instagram' },
-    { path: '/', icon: Twitter, alt: 'Twitter' },
-]
+    const footerLinks: SocialLink[] = [
+        { path: '/', icon: Facebook, alt: 'Facebook' },
+        { path: '/', icon: Instagram, alt: 'Instagram' },
+        { path: '/', icon: Twitter, alt: 'Twitter' },
+    ]
 </script>
 
 <style lang="scss" scoped>
-.footer__logo-list {
-    display: flex;
-    gap: 30px;
+    .footer__logo-list {
+        display: flex;
+        gap: 30px;
 
-    @media (max-width: $breakpoints-l) {
-        order: 3;
-    }
-
-    @media (max-width: $breakpoints-m) {
-        gap: 16px;
-    }
-
-    .logo__discription {
-        display: none;
+        @media (max-width: $breakpoints-l) {
+            order: 3;
+        }
 
         @media (max-width: $breakpoints-m) {
-            display: flex;
-            align-items: center;
-            gap: 14px;
+            gap: 16px;
         }
 
-        .logo__text {
-            @include body_small(#000000);
-        }
+        .logo__discription {
+            display: none;
 
-        .logo__line {
-            border: 1px #000000 solid;
-            width: 48px;
+            @media (max-width: $breakpoints-m) {
+                display: flex;
+                gap: 14px;
+                align-items: center;
+            }
+
+            .logo__text {
+                @include body_small(#000000);
+            }
+
+            .logo__line {
+                width: 48px;
+                border: 1px #000000 solid;
+            }
         }
     }
-}
 </style>

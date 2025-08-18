@@ -9,78 +9,83 @@
 </template>
 
 <script setup>
-const props = defineProps({
-    showAs: {
-        type: String,
-        default: 'desktop',
-        validator: (value) => ['desktop', 'mobile'].includes(value),
-    },
-})
-const NavPageItems = [
-    { path: '/', title: 'Home', showIn: ['mobile'] },
-    { path: '/shop', title: 'Shop', showIn: ['desktop', 'mobile'] },
-    { path: '/about', title: 'About', showIn: ['mobile'] },
-    { path: '/blog', title: 'Blog', showIn: ['desktop', 'mobile'] },
-    { path: '/about', title: 'Our Story', showIn: ['desktop'] },
-    { path: '/', title: 'Help', showIn: ['mobile'] },
-    { path: '/', title: 'Contact', showIn: ['mobile'] },
-    { path: '/', title: 'Search', showIn: ['mobile'] },
-].map((item) => ({
-    ...item,
-    showIn: item.showIn || [],
-}))
+    import { computed } from 'vue'
+    const props = defineProps({
+        showAs: {
+            type: String,
+            default: 'desktop',
+            validator: (value) => ['desktop', 'mobile'].includes(value),
+        },
+    })
+    const navPageItems = [
+        { path: '/', title: 'Home', showIn: ['mobile'] },
+        { path: '/shop', title: 'Shop', showIn: ['desktop', 'mobile'] },
+        { path: '/about', title: 'About', showIn: ['mobile'] },
+        { path: '/blog', title: 'Blog', showIn: ['desktop', 'mobile'] },
+        { path: '/about', title: 'Our Story', showIn: ['desktop'] },
+        { path: '/', title: 'Help', showIn: ['mobile'] },
+        { path: '/', title: 'Contact', showIn: ['mobile'] },
+        { path: '/', title: 'Search', showIn: ['mobile'] },
+    ].map((item) => ({
+        ...item,
+        showIn: item.showIn || [],
+    }))
 
-const visibleItems = computed(() => {
-    return NavPageItems.filter((item) => item.showIn.includes(props.showAs))
-})
+    const visibleItems = computed(() => {
+        return navPageItems.filter((item) => item.showIn.includes(props.showAs))
+    })
 
-const handleClick = () => {
-    if (props.showAs === 'mobile') {
-        emit('click')
+    const handleClick = () => {
+        if (props.showAs === 'mobile') {
+            // eslint-disable-next-line no-undef
+            emit('click')
+        }
     }
-}
 </script>
 
 <style lang="scss" scoped>
-.header__nav-pages-list--desktop {
-    display: flex;
-    gap: 64px;
-
-    @media (max-width: $breakpoints-l) {
-        display: none;
-    }
-    .header__pages-item-link {
-        @include h5(#000000);
-
-        &:focus {
-            @extend %focus-line;
-        }
-    }
-}
-.header__nav-pages-list--mobile {
-    @media (max-width: $breakpoints-l) {
+    .header__nav-pages-list--desktop {
         display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 24px;
-    }
-
-    .header__pages-item {
-        @include h5(#000000);
+        gap: 64px;
 
         @media (max-width: $breakpoints-l) {
-            &:hover {
-                color: #ffffff;
-            }
+            display: none;
         }
-        @media (max-width: $breakpoints-s) {
-            transition: all 0.3s;
 
-            &:hover {
-                transform: scale(1.1);
-                color: #000000;
+        .header__pages-item-link {
+            @include h5(#000000);
+
+            &:focus {
+                @extend %focus-line;
             }
         }
     }
-}
+
+    .header__nav-pages-list--mobile {
+        @media (max-width: $breakpoints-l) {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            align-items: flex-start;
+        }
+
+        .header__pages-item {
+            @include h5(#000000);
+
+            @media (max-width: $breakpoints-l) {
+                &:hover {
+                    color: #ffffff;
+                }
+            }
+
+            @media (max-width: $breakpoints-s) {
+                transition: all 0.3s;
+
+                &:hover {
+                    color: #000000;
+                    transform: scale(1.1);
+                }
+            }
+        }
+    }
 </style>

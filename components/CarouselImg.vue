@@ -10,37 +10,40 @@
 </template>
 
 <script lang="ts" setup>
-interface Props {
-    image?: string
-    alt?: string
-}
+    import { ref } from 'vue'
 
-const props = withDefaults(defineProps<Props>(), {
-    image: '',
-    alt: '',
-})
+    interface Props {
+        image?: string
+        alt?: string
+    }
 
-const loading = ref(false)
-const handleLoad = () => {
-    loading.value = false
-}
-const handleError = () => {
-    loading.value = false
-    console.error('Ошибка загрузки изображения', props.image)
-}
+    const props = withDefaults(defineProps<Props>(), {
+        image: '',
+        alt: '',
+    })
+
+    const loading = ref(false)
+    const handleLoad = () => {
+        loading.value = false
+    }
+    const handleError = () => {
+        loading.value = false
+        console.error('Ошибка загрузки изображения', props.image)
+    }
 </script>
 
 <style lang="scss" scoped>
-.slider__slide-img {
-    width: 100%;
-    border-radius: 16px;
-    object-fit: cover;
-    @media (max-width: $breakpoints-m) {
-        height: 274px;
-    }
+    .slider__slide-img {
+        width: 100%;
+        object-fit: cover;
+        border-radius: 16px;
 
-    @media (max-width: $breakpoints-s) {
-        height: 354px;
+        @media (max-width: $breakpoints-m) {
+            height: 274px;
+        }
+
+        @media (max-width: $breakpoints-s) {
+            height: 354px;
+        }
     }
-}
 </style>

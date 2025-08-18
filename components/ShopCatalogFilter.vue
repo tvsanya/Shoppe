@@ -1,104 +1,94 @@
 <template>
-    <form class="shop__filter">
-        <div class="shop__filter-search">
-            <input type="text" placeholder="Search..." class="search__input" />
-            <button class="search__button">
+    <form class="shop-filter">
+        <div class="shop-filter__search">
+            <input
+                v-model="filters.search"
+                type="text"
+                placeholder="Search..."
+                class="shop-filter__search-input"
+            />
+            <button class="shop-filter__search-button">
                 <SearchComp />
             </button>
         </div>
-        <div class="shop__filter-select">
+        <div class="shop-filter__select">
             <CatalogFilterSelect />
         </div>
-        <div class="shop__filter-price">
-            <div class="price__slider-container">
-                <RangeSlider v-model="priceRange" :min="0" :max="200" />
+        <div class="shop-filter__price">
+            <div class="shop-filter__slider-container">
+                <RangeSlider v-model="filters.priceRange" :min="0" :max="1000" />
             </div>
-            <div class="price__title">
-                <span class="title__values"
-                    >Price: ${{ priceRange[0] }} - ${{ priceRange[1] }}</span
+            <div class="shop-filter__price-info">
+                <span class="shop-filter__price-range"
+                    >Price: ${{ filters.priceRange[0] }} - ${{ filters.priceRange[1] }}</span
                 >
-                <span class="title__filter">Filter</span>
+                <span class="shop-filter__price-filter">Filter</span>
             </div>
         </div>
-        <FilterCheckbox class="shop__filter-checkbox" />
+        <FilterCheckbox class="shop-filter__checkbox" />
     </form>
 </template>
 
 <script lang="ts" setup>
-const priceRange = ref<[number, number]>([40, 200])
+    import SearchComp from '@/components/SearchComp.vue'
+    import CatalogFilterSelect from '@/components/CatalogFilterSelect.vue'
+    import RangeSlider from '@/components/RangeSlider.vue'
+    import FilterCheckbox from '@/components/FilterCheckbox.vue'
+    import { useCatalogFilters } from '@/composables/useCatalogFilter'
 
-watch(
-    priceRange,
-    (newVal: [number, number]) => {
-        console.log('Price range changed:', newVal)
-    },
-    { deep: true }
-)
+    const { filters } = useCatalogFilters()
 </script>
 
 <style lang="scss" scoped>
-.shop__filter {
-    max-width: 262px;
-    width: 100%;
+    .shop-filter {
+        width: 100%;
+        max-width: 262px;
 
-    &-search {
-        display: flex;
-        align-items: center;
-        max-width: 100%;
-        margin-bottom: 40px;
-        border-bottom: 1px solid #d8d8d8;
-
-        .search__input {
-            @include body-medium(#707070);
-            width: 100%;
-            padding: 12px 0;
-        }
-
-        .search__button {
-            background: transparent;
-        }
-    }
-
-    &-select {
-        display: flex;
-        gap: 16px 0;
-        max-width: 100%;
-        flex-direction: column;
-        margin-bottom: 40px;
-
-        .filter__select-wrapper {
-            position: relative;
+        &__search {
             display: flex;
             align-items: center;
+            max-width: 100%;
+            margin-bottom: 40px;
+            border-bottom: 1px solid #d8d8d8;
 
-            .select__arrow {
-                position: absolute;
-                right: 12px;
-                top: 50%;
-                transform: translateY(-50%);
-                pointer-events: none;
+            &-input {
+                @include body-medium(#707070);
+
+                width: 100%;
+                padding: 12px 0;
+            }
+
+            &-button {
+                background: transparent;
             }
         }
-    }
 
-    &-price {
-        display: flex;
-        flex-direction: column;
-        gap: 12px 0;
-        margin-bottom: 40px;
-
-        .price__title {
+        &__select {
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
+            gap: 16px 0;
+            max-width: 100%;
+            margin-bottom: 40px;
+        }
 
-            .title__values {
+        &__price {
+            display: flex;
+            flex-direction: column;
+            gap: 12px 0;
+            margin-bottom: 40px;
+
+            &-info {
+                display: flex;
+                justify-content: space-between;
+            }
+
+            &-range {
                 @include body-medium(#707070);
             }
 
-            .title__filter {
+            &-filter {
                 @include body-medium(#a18a68);
             }
         }
     }
-}
 </style>
