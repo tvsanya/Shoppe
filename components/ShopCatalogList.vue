@@ -49,7 +49,6 @@
     const totalPages = computed(() => {
         return Math.ceil(filteredProducts.value.length / DEFAULT_ITEM_LIMIT)
     })
-
     const paginatedItems = computed(() => {
         const start = (currentPage.value - 1) * DEFAULT_ITEM_LIMIT
         const end = start + DEFAULT_ITEM_LIMIT
