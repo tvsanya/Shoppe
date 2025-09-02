@@ -6,7 +6,7 @@
 </template>
 
 <script lang="ts" setup>
-    import FiltersSvg from '@/components/icons/filtersSvg.vue'
+    import FiltersSvg from '@/components/icons/FiltersSvg.vue'
     defineEmits<{
         (e: 'toggle'): void
     }>()
