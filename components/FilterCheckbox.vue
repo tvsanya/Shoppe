@@ -20,14 +20,14 @@
     const { filters } = useCatalogFilters()
 
     const onSaleModel = computed({
-        get: () => filters.value.onSale ?? false,
+        get: () => filters.value.onSale ?? null,
         set: (value) => {
             filters.value.onSale = value || null
         },
     })
 
     const inStockModel = computed({
-        get: () => filters.value.inStock ?? false,
+        get: () => filters.value.inStock ?? null,
         set: (value) => {
             filters.value.inStock = value || null
         },

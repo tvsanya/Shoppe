@@ -5,7 +5,7 @@
             :disabled="currentPage === 1"
             @click="changePage(currentPage - 1)"
         >
-            <PrevPag />
+            <PrevPage />
         </button>
         <ul class="pagination">
             <li
@@ -23,15 +23,15 @@
             :disabled="currentPage === totalPages"
             @click="changePage(currentPage + 1)"
         >
-            <NextPag />
+            <NextPage />
         </button>
     </div>
 </template>
 
 <script lang="ts" setup>
     import { computed } from 'vue'
-    import NextPag from '@/components/icons/nextPag.vue'
-    import PrevPag from '@/components/icons/prevPag.vue'
+    import NextPage from '@/components/icons/nextPage.vue'
+    import PrevPage from '@/components/icons/prevPage.vue'
 
     interface Props {
         currentPage: number
@@ -98,7 +98,7 @@
         display: flex;
         gap: 12px;
         justify-content: center;
-        margin-top: 86px;
+        width: 100%;
 
         .pagination {
             display: flex;

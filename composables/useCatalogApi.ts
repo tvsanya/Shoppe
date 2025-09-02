@@ -11,35 +11,36 @@ export interface CatalogItem {
     onSale: boolean
 }
 
+const catalogItems = ref<CatalogItem[]>([])
+const isLoading = ref(false)
+const error = ref<string | null>(null)
+const hasLoaded = ref(false)
+
 export const useCatalogApi = () => {
     const config = useRuntimeConfig()
-    const catalogItems = ref<CatalogItem[]>([])
-    const isLoading = ref(false)
-    const error = ref<string | null>(null)
     const DEFAULT_ITEM_LIMIT = 6
 
-    const fetchCatalogItems = async (options: {
-        limit?: number
-        category?: string
-        items?: CatalogItem[]
-        applyLimit?: boolean
-    }) => {
+    const fetchCatalogItems = async (
+        options: {
+            limit?: number
+            category?: string | null
+            items?: CatalogItem[]
+        } = {},
+    ) => {
         try {
             isLoading.value = true
+            error.value = null
 
-            if (options.items) {
+            if (options?.items) {
                 catalogItems.value = options.items
+                hasLoaded.value = true
                 return
             }
 
             const baseUrl = config.public.apiBaseUrl
-            let endpoint = options.category
+            let endpoint = options?.category
                 ? `/products/category/${options.category}`
-                : config.public.apiProductsEndpoint
-
-            if (options.applyLimit && options.limit) {
-                endpoint += `?limit=${options.limit}`
-            }
+                : config.public.apiProductsEndpoint || '/products'
 
             if (!baseUrl) {
                 throw new Error('API base URL is not configured')
@@ -55,8 +56,14 @@ export const useCatalogApi = () => {
             const data = await response.json()
 
             catalogItems.value = data.map((item: CatalogItem) => {
-                return { ...item, onSale: Math.random() < 0.3, inStock: Math.random() < 0.8 }
+                return {
+                    ...item,
+                    onSale: Math.random() < 0.3,
+                    inStock: Math.random() < 0.8,
+                }
             })
+
+            hasLoaded.value = true
         } catch (err) {
             error.value = err instanceof Error ? err.message : 'Unknown error'
             console.error('Failed to fetch catalog items:', err)

@@ -1,11 +1,11 @@
 <template>
     <div class="filter__select-wrapper">
-        <Multiselect
+        <MultiSelect
             v-model="selectedCategory"
             :options="categories"
             placeholder="Category"
             :searchable="false"
-            :close-on-select="true"
+            :close-on-select="false"
             :show-caret="false"
             :clearable="false"
             :style="selectStyles"
@@ -18,7 +18,7 @@
         />
     </div>
     <div class="filter__select-wrapper">
-        <Multiselect
+        <MultiSelect
             v-model="filters.sortBy"
             :options="sorties"
             placeholder="Sort By"
@@ -34,36 +34,11 @@
 
 <script lang="ts" setup>
     import { ref, computed, watch } from 'vue'
-    import Multiselect from '@vueform/multiselect'
+    import MultiSelect from '@vueform/multiselect'
     import '@vueform/multiselect/themes/default.css'
-    import SelectArrow from '@/components/icons/SelectArrow.vue'
+    import SelectArrow from '@/components/icons/selectArrow.vue'
     import { useCatalogFilters } from '@/composables/useCatalogFilter'
-    import { useCatalogApi } from '@/composables/useCatalog'
-
-    interface Category {
-        value: string
-        label: string
-    }
-
-    interface Sort {
-        value: string
-        label: string
-    }
-
-    interface SelectStyles {
-        '--ms-bg': string
-        '--ms-border-color': string
-        '--ms-border-width': string
-        '--ms-radius': string
-        '--ms-py': string
-        '--ms-px': string
-        '--ms-dropdown-radius': string
-        '--ms-dropdown-border-width': string
-        '--ms-dropdown-border-color': string
-        '--ms-placeholder-color': string
-        '--ms-font-size': string
-        '--ms-clear-color-hover': string
-    }
+    import { useCatalogApi } from '@/composables/useCatalogApi'
 
     interface DropdownToggleParams {
         type: 'category' | 'sort'
@@ -72,14 +47,14 @@
     const { filters } = useCatalogFilters()
     const { fetchCatalogItems } = useCatalogApi()
 
-    const categories: Category[] = [
+    const categories = [
         { value: "women's clothing", label: 'Women Clothing' },
         { value: 'electronics', label: 'Electronics' },
         { value: 'jewelery', label: 'Jewelery' },
         { value: "men's clothing", label: 'Mens Clothing' },
     ]
 
-    const sorties: Sort[] = [
+    const sorties = [
         { value: 'price-asc', label: 'Price: Low to High' },
         { value: 'price-desc', label: 'Price: High to Low' },
         { value: 'name-asc', label: 'Name: A to Z' },
@@ -90,13 +65,13 @@
     const isSortOpen = ref<boolean>(false)
 
     const selectedCategory = computed({
-        get: () => filters.value.category || '',
+        get: () => filters.value.category || null,
         set: (value) => {
             filters.value.category = value || null
         },
     })
 
-    const selectStyles = computed<SelectStyles>(() => ({
+    const selectStyles = {
         '--ms-bg': 'white',
         '--ms-border-color': '#d8d8d8',
         '--ms-border-width': '1px',
@@ -109,7 +84,7 @@
         '--ms-placeholder-color': '#000000',
         '--ms-font-size': '14px',
         '--ms-clear-color-hover': '#D82700',
-    }))
+    }
 
     const toggleDropdown = (params: DropdownToggleParams): void => {
         if (params.type === 'category') {
@@ -122,17 +97,12 @@
     watch(
         () => filters.value.category,
         async (newCategory) => {
-            if (newCategory) {
-                const response = await fetch(
-                    `https://fakestoreapi.com/products/category/${newCategory}`,
-                )
-                const data = await response.json()
+            try {
                 await fetchCatalogItems({
                     category: newCategory,
-                    items: data,
                 })
-            } else {
-                await fetchCatalogItems({ limit: 6 })
+            } catch (error) {
+                console.error('Error fetching category items:', error)
             }
         },
     )

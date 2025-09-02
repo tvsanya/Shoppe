@@ -1,18 +1,20 @@
 <template>
-    <div class="filter__popup" :class="{ 'filter__popup--visible': isOpen }">
-        <div class="popup__header">
-            <FilterTitleIcon />
-            <button class="popup__close" @click="$emit('close')">
-                <CloseIcon />
-            </button>
+    <Transition name="slide">
+        <div v-if="isOpen" class="filter__popup">
+            <div class="popup__header">
+                <FilterTitleIcon />
+                <button class="popup__close" @click="$emit('close')">
+                    <CloseIcon />
+                </button>
+            </div>
+            <slot />
         </div>
-        <slot />
-    </div>
+    </Transition>
 </template>
 
 <script lang="ts" setup>
-    import CloseIcon from '@/components/icons/CloseIcon.vue'
-    import FilterTitleIcon from '@/components/icons/FilterTitleIcon.vue'
+    import CloseIcon from '@/components/icons/closeIcon.vue'
+    import FilterTitleIcon from '@/components/icons/filterTitleIcon.vue'
 
     defineProps<{
         isOpen: boolean
@@ -27,7 +29,7 @@
     .filter__popup {
         position: fixed;
         top: 0;
-        left: -100%;
+        left: 0;
         z-index: 20;
         display: flex;
         flex-direction: column;
@@ -36,15 +38,20 @@
         padding: 0 16px;
         overflow-y: auto;
         background: white;
-        transition: left 0.3s ease;
-
-        &--visible {
-            left: 0;
-        }
 
         @media (min-width: 769px) {
             display: none;
         }
+    }
+
+    .slide-enter-active,
+    .slide-leave-active {
+        transition: transform 0.3s ease;
+    }
+
+    .slide-enter-from,
+    .slide-leave-to {
+        transform: translateX(-100%);
     }
 
     .popup__header {

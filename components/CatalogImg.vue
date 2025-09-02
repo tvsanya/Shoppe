@@ -1,11 +1,25 @@
 <template>
     <div class="catalog__item-image-box">
-        <img :src="props.image" :alt="props.alt" class="catalog__item-img" />
+        <img
+            v-if="props.image"
+            :src="props.image"
+            :alt="props.alt"
+            class="catalog__item-img"
+            @error="handleImageError"
+        />
+        <img
+            v-else
+            :src="placeholderImage"
+            :alt="props.alt || 'Изображение товара'"
+            class="catalog__item-img catalog__item-img--placeholder"
+        />
         <CatalogImgBtn class="catalog__button" />
     </div>
 </template>
 
 <script lang="ts" setup>
+    import { ref } from 'vue'
+    import placeholderImage from '@/assets/image/plug.png'
     interface Props {
         image?: string
         alt?: string
@@ -15,6 +29,14 @@
         image: '',
         alt: '',
     })
+
+    const imageError = ref(false)
+
+    const handleImageError = (event: Event) => {
+        imageError.value = true
+        const imgElement = event.target as HTMLImageElement
+        imgElement.src = placeholderImage
+    }
 </script>
 
 <style lang="scss" scoped>
@@ -22,8 +44,9 @@
         position: relative;
         width: 100%;
         max-width: var(--item-max-width, 380px);
-        height: 100%;
-        max-height: var(--img-max-height, 380px);
+        height: var(--img-max-height, 380px);
+        overflow: hidden;
+        border-radius: 8px;
 
         &:hover {
             .catalog__button {
@@ -33,24 +56,32 @@
         }
 
         @media (max-width: $breakpoints-xl) {
-            max-height: 270px;
+            max-width: 270px;
+            height: 270px;
         }
 
         @media (max-width: $breakpoints-l) {
             max-width: 100%;
-            max-height: 210px;
+            height: 210px;
         }
 
         @media (max-width: $breakpoints-m) {
             max-width: 100%;
-            max-height: 136px;
+            height: 136px;
         }
 
         .catalog__item-img {
             width: 100%;
             height: 100%;
             object-fit: contain;
-            border-radius: 8px;
+            object-position: center;
+        }
+
+        .catalog__item-img--placeholder {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
         }
     }
 </style>

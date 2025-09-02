@@ -9,7 +9,7 @@
 
 <script setup>
     import { onMounted } from 'vue'
-    import { useCatalogApi } from '@/composables/useCatalog'
+    import { useCatalogApi } from '@/composables/useCatalogApi'
     import CatalogItem from '@/components/CatalogItem.vue'
 
     const { catalogItems, isLoading, error, DEFAULT_ITEM_LIMIT, fetchCatalogItems } =

@@ -23,7 +23,7 @@
 
 <script lang="ts" setup>
     import { computed } from 'vue'
-    import { useCatalogApi, type CatalogItem } from '@/composables/useCatalog'
+    import { useCatalogApi, type CatalogItem } from '@/composables/useCatalogApi'
     interface Props {
         item: CatalogItem
     }

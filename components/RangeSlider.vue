@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts" setup>
-    import { defineProps, defineEmits, computed } from 'vue'
+    import { defineProps, computed } from 'vue'
     import Slider from '@vueform/slider'
     import '@vueform/slider/themes/default.css'
 
@@ -46,14 +46,7 @@
         handleHeight: '10px',
     })
 
-    const emit = defineEmits<{
-        (e: 'update:modelValue', value: [number, number]): void
-    }>()
-
-    const value = computed({
-        get: () => props.modelValue,
-        set: (val: [number, number]) => emit('update:modelValue', val),
-    })
+    const value = defineModel<[number, number]>()
 
     const sliderStyles = computed<SliderStyles>(() => ({
         '--slider-connect-bg': props.connectColor,
@@ -70,12 +63,6 @@
     }
 
     :deep(.custom__slider) {
-        --slider-connect-bg: #000000;
-        --slider-handle-bg: #000000;
-        --slider-height: 4px;
-        --slider-handle-width: 2px;
-        --slider-handle-height: 10px;
-
         height: auto;
         padding: 8px 0;
 

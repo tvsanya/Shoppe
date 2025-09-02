@@ -25,13 +25,21 @@
     import CatalogItem from '@/components/CatalogItem.vue'
     import Pagination from '@/components/Pagination.vue'
 
-    const { filteredProducts, isLoading, error, DEFAULT_ITEM_LIMIT, fetchCatalogItems } =
-        useCatalogFilters()
+    const {
+        filteredProducts,
+        isLoading,
+        error,
+        DEFAULT_ITEM_LIMIT,
+        fetchCatalogItems,
+        catalogItems,
+    } = useCatalogFilters()
 
     const currentPage = ref(1)
 
     onMounted(() => {
-        fetchCatalogItems({})
+        if (catalogItems.value.length === 0) {
+            fetchCatalogItems()
+        }
     })
 
     watch(filteredProducts, () => {
@@ -56,11 +64,13 @@
 
 <style lang="scss" scoped>
     .shop__catalog-container {
+        position: relative;
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
+        justify-content: flex-start;
         width: 100%;
+        min-height: 600px;
 
         .loading {
             @extend %h2;
@@ -76,6 +86,8 @@
             display: grid;
             grid-template: repeat(2, auto) / repeat(3, auto);
             gap: 70px 24px;
+            width: 100%;
+            margin-bottom: 86px;
 
             --item-max-width: 300px;
             --img-max-heigth: 300px;
