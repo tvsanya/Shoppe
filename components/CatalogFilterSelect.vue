@@ -36,7 +36,7 @@
     import { ref, computed, watch } from 'vue'
     import MultiSelect from '@vueform/multiselect'
     import '@vueform/multiselect/themes/default.css'
-    import SelectArrow from '@/components/icons/selectArrow.vue'
+    import SelectArrow from '@/components/icons/SelectArrow.vue'
     import { useCatalogFilters } from '@/composables/useCatalogFilter'
     import { useCatalogApi } from '@/composables/useCatalogApi'
 

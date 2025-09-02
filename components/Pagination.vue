@@ -30,8 +30,8 @@
 
 <script lang="ts" setup>
     import { computed } from 'vue'
-    import NextPage from '@/components/icons/nextPage.vue'
-    import PrevPage from '@/components/icons/prevPage.vue'
+    import NextPage from '@/components/icons/NextPage.vue'
+    import PrevPage from '@/components/icons/PrevPage.vue'
 
     interface Props {
         currentPage: number

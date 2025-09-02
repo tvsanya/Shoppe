@@ -14,7 +14,7 @@
 
 <script lang="ts" setup>
     import CloseIcon from '@/components/icons/CloseIcon.vue'
-    import FilterTitleIcon from '@/components/icons/filterTitleIcon.vue'
+    import FilterTitleIcon from '@/components/icons/FilterTitleIcon.vue'
 
     defineProps<{
         isOpen: boolean
