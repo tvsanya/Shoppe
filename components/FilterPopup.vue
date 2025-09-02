@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts" setup>
-    import CloseIcon from '@/components/icons/closeIcon.vue'
+    import CloseIcon from '@/components/icons/CloseIcon.vue'
     import FilterTitleIcon from '@/components/icons/filterTitleIcon.vue'
 
     defineProps<{
