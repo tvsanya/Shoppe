@@ -3,20 +3,24 @@
     <div v-else-if="error" class="error">{{ error }}</div>
 
     <ul class="shop__catalog-list">
-        <CatalogItem v-for="item in catalogItems" :key="item.id" :item="item" />
+        <CatalogItem v-for="item in limitedItems" :key="item.id" :item="item" />
     </ul>
 </template>
 
 <script setup>
-    import { onMounted } from 'vue'
+    import { onMounted, computed } from 'vue'
     import { useCatalogApi } from '@/composables/useCatalogApi'
     import CatalogItem from '@/components/CatalogItem.vue'
 
     const { catalogItems, isLoading, error, DEFAULT_ITEM_LIMIT, fetchCatalogItems } =
         useCatalogApi()
 
+    const limitedItems = computed(() => {
+        return catalogItems.value.slice(0, DEFAULT_ITEM_LIMIT)
+    })
+
     onMounted(() => {
-        fetchCatalogItems({ limit: DEFAULT_ITEM_LIMIT, applyLimit: true })
+        fetchCatalogItems()
     })
 </script>
 

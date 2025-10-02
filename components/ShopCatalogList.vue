@@ -1,11 +1,17 @@
 <template>
+    <Notification :is-visible="showNotification" @close="handleNotificationClose" />
     <div class="shop__catalog-container">
         <div v-if="isLoading" class="loading">Loading...</div>
         <div v-else-if="error" class="error">{{ error }}</div>
 
         <template v-else>
             <ul key="catalog" class="shop__catalog-list">
-                <CatalogItem v-for="item in paginatedItems" :key="item.id" :item="item" />
+                <CatalogItem
+                    v-for="item in paginatedItems"
+                    :key="item.id"
+                    :item="item"
+                    @show-notification="handleShowNotification"
+                />
             </ul>
             <Pagination
                 v-if="totalPages > 1"
@@ -24,6 +30,7 @@
     import { useCatalogFilters } from '@/composables/useCatalogFilter'
     import CatalogItem from '@/components/CatalogItem.vue'
     import Pagination from '@/components/Pagination.vue'
+    import Notification from '@/components/Notification.vue'
 
     const {
         filteredProducts,
@@ -35,6 +42,7 @@
     } = useCatalogFilters()
 
     const currentPage = ref(1)
+    const showNotification = ref(false)
 
     onMounted(() => {
         if (catalogItems.value.length === 0) {
@@ -58,6 +66,17 @@
     const handlePageChange = (page: number) => {
         currentPage.value = page
         window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+
+    const handleShowNotification = () => {
+        showNotification.value = false
+        setTimeout(() => {
+            showNotification.value = true
+        }, 10)
+    }
+
+    const handleNotificationClose = () => {
+        showNotification.value = false
     }
 </script>
 

@@ -1,9 +1,8 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
 import { defineNuxtConfig } from 'nuxt/config'
 export default defineNuxtConfig({
     compatibilityDate: '2025-05-15',
     devtools: { enabled: true },
-    modules: ['@nuxt/eslint', '@nuxt/image'],
+    modules: ['@nuxt/eslint', '@nuxt/image', '@primevue/nuxt-module'],
     css: ['@/assets/scss/style.scss'],
     build: {
         transpile: ['@vueform/slider'],
@@ -37,4 +36,9 @@ export default defineNuxtConfig({
             pathPrefix: false,
         },
     ],
+    primevue: {
+        components: {
+            include: ['Dropdown'],
+        },
+    },
 })

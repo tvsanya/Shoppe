@@ -20,16 +20,19 @@
     "dependencies": {
         "@nuxt/eslint": "^1.4.1",
         "@nuxt/image": "^1.10.0",
+        "@primeuix/themes": "^1.2.3",
         "@vueform/multiselect": "^2.6.11",
         "@vueform/slider": "^2.1.10",
         "eslint": "^9.27.0",
         "lodash-es": "^4.17.21",
         "nuxt": "^3.17.4",
+        "primevue": "^4.3.8",
         "swiper": "^11.2.8",
         "vue": "^3.5.15",
         "vue-router": "^4.5.1"
     },
     "devDependencies": {
+        "@primevue/nuxt-module": "^4.3.8",
         "@types/lodash": "^4.17.20",
         "@types/lodash-es": "^4.17.12",
         "@typescript-eslint/eslint-plugin": "^8.34.1",

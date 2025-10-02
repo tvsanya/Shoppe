@@ -1,48 +1,32 @@
 <template>
     <div class="filter__select-wrapper">
-        <MultiSelect
+        <Select
             v-model="selectedCategory"
             :options="categories"
             placeholder="Category"
-            :searchable="false"
-            :close-on-select="false"
-            :show-caret="false"
-            :clearable="false"
-            :style="selectStyles"
+            optionLabel="label"
+            optionValue="value"
+            showClear
             class="select__category"
-        />
-        <SelectArrow
-            class="select__arrow"
-            :is-open="isCategoryOpen"
-            @click="toggleDropdown({ type: 'category' })"
         />
     </div>
     <div class="filter__select-wrapper">
-        <MultiSelect
+        <Select
             v-model="filters.sortBy"
             :options="sorties"
             placeholder="Sort By"
-            :searchable="false"
-            :show-caret="false"
-            :clearable="false"
+            optionLabel="label"
+            optionValue="value"
+            showClear
             class="select__sort"
-            :style="selectStyles"
         />
-        <SelectArrow class="select__arrow" :is-open="isSortOpen" />
     </div>
 </template>
 
 <script lang="ts" setup>
-    import { ref, computed, watch } from 'vue'
-    import MultiSelect from '@vueform/multiselect'
-    import '@vueform/multiselect/themes/default.css'
-    import SelectArrow from '@/components/icons/SelectArrow.vue'
+    import { computed, watch } from 'vue'
     import { useCatalogFilters } from '@/composables/useCatalogFilter'
     import { useCatalogApi } from '@/composables/useCatalogApi'
-
-    interface DropdownToggleParams {
-        type: 'category' | 'sort'
-    }
 
     const { filters } = useCatalogFilters()
     const { fetchCatalogItems } = useCatalogApi()
@@ -61,38 +45,12 @@
         { value: 'name-desc', label: 'Name: Z to A' },
     ]
 
-    const isCategoryOpen = ref(false)
-    const isSortOpen = ref<boolean>(false)
-
     const selectedCategory = computed({
         get: () => filters.value.category || null,
         set: (value) => {
             filters.value.category = value || null
         },
     })
-
-    const selectStyles = {
-        '--ms-bg': 'white',
-        '--ms-border-color': '#d8d8d8',
-        '--ms-border-width': '1px',
-        '--ms-radius': '4px',
-        '--ms-py': '16px',
-        '--ms-px': '12px',
-        '--ms-dropdown-radius': '0 0 4px 4px',
-        '--ms-dropdown-border-width': '1px',
-        '--ms-dropdown-border-color': '#d8d8d8',
-        '--ms-placeholder-color': '#000000',
-        '--ms-font-size': '14px',
-        '--ms-clear-color-hover': '#D82700',
-    }
-
-    const toggleDropdown = (params: DropdownToggleParams): void => {
-        if (params.type === 'category') {
-            isCategoryOpen.value = !isCategoryOpen.value
-        } else {
-            isSortOpen.value = !isSortOpen.value
-        }
-    }
 
     watch(
         () => filters.value.category,
@@ -108,82 +66,68 @@
     )
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
     .filter__select-wrapper {
         position: relative;
         display: flex;
         align-items: center;
+
+        .select__category,
+        .select__sort {
+            @include body-medium(#000000);
+
+            display: flex;
+            width: 100%;
+            padding: 16px 12px 16px 16px;
+            border: 2px solid #d8d8d8;
+            border-radius: 4px;
+
+            .p-select-label {
+                @include body-medium(#000000);
+
+                overflow: unset;
+            }
+        }
     }
 
-    :deep(.select__category),
-    :deep(.select__sort) {
+    .p-select-overlay {
         @include body-medium(#000000);
 
-        .multiselect-single-label {
-            @include body-medium(#000000);
+        --p-select-overlay-background: #efefef;
+        --p-select-overlay-border-radius: 4px;
+    }
 
-            width: 100%;
+    .p-select-option {
+        --p-select-option-padding: 12px 6px;
+        --p-select-option-border-radius: 4px;
+
+        &-selected {
+            --p-select-option-selected-background: #a18a68;
+            --p-select-option-selected-focus-background: #a18a68;
         }
 
-        .multiselect-dropdown {
-            margin-top: 0;
-            border-top: none;
-            box-shadow: none;
-        }
-
-        .multiselect-option {
-            @include body-medium(#000000);
-
-            padding: 8px 12px;
-
-            &.is-selected {
-                color: #ffffff;
-                background: #a18a68;
-            }
-
-            &.is-pointed {
-                color: #ffffff;
-                background: #a18a68;
-            }
-        }
-
-        .multiselect-caret {
-            display: none;
-        }
-
-        .multiselect-clear {
-            position: absolute;
-            right: 28px;
-
-            .multiselect-clear:hover {
-                color: #a18a68;
-            }
+        &:hover {
+            background-color: #a18a68;
         }
     }
 
-    .select__arrow {
-        position: absolute;
-        top: 50%;
-        right: 16px;
-        z-index: 1;
-        width: 12px;
-        height: 12px;
-        color: #a18a68;
-        pointer-events: none;
-        transform: translateY(-50%);
+    .p-select-clear-icon {
+        --p-select-dropdown-width: 14%;
+
+        &:hover {
+            --p-select-clear-icon-color: red;
+        }
+
+        @media (max-width: $breakpoints-s) {
+            --p-select-dropdown-width: 8%;
+        }
+    }
+
+    .p-select .p-select-dropdown-icon {
         transition: transform 0.3s ease;
     }
 
-    .is-open ~ .select__arrow {
-        transform: translateY(-50%) rotate(180deg);
-    }
-
-    .is-open .multiselect-single-label {
-        border-radius: 4px 4px 0 0;
-        box-shadow: none;
-    }
-
-    .is-active {
-        box-shadow: none;
+    .p-select.p-select-open .p-select-dropdown-icon {
+        transform: rotate(180deg);
     }
 </style>

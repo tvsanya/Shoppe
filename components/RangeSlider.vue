@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts" setup>
-    import { defineProps, computed } from 'vue'
+    import { defineProps } from 'vue'
     import Slider from '@vueform/slider'
     import '@vueform/slider/themes/default.css'
 
@@ -28,14 +28,6 @@
         handleHeight?: string
     }
 
-    interface SliderStyles {
-        '--slider-connect-bg': string
-        '--slider-handle-bg': string
-        '--slider-height': string
-        '--slider-handle-width': string
-        '--slider-handle-height': string
-    }
-
     const props = withDefaults(defineProps<Props>(), {
         min: 0,
         max: 1000,
@@ -48,13 +40,13 @@
 
     const value = defineModel<[number, number]>()
 
-    const sliderStyles = computed<SliderStyles>(() => ({
+    const sliderStyles = {
         '--slider-connect-bg': props.connectColor,
         '--slider-handle-bg': props.handleColor,
         '--slider-height': props.trackHeight,
         '--slider-handle-width': props.handleWidth,
         '--slider-handle-height': props.handleHeight,
-    }))
+    }
 </script>
 
 <style lang="scss" scoped>

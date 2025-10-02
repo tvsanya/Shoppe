@@ -1,6 +1,11 @@
 <template>
     <li class="shop__catalog-item">
-        <CatalogImg v-if="item.image" :image="item.image" :alt="item.title" />
+        <CatalogImg
+            v-if="item.image"
+            :image="item.image"
+            :alt="item.title"
+            @show-notification="handleShowNotification"
+        />
         <span v-if="item.onSale" class="shop__catalog-item-badge shop__catalog-item-badge--sale"
             >-{{ discountPercentage }}%</span
         >
@@ -29,6 +34,10 @@
     }
 
     const props = defineProps<Props>()
+    const emit = defineEmits<{
+        (e: 'showNotification'): void
+    }>()
+
     const { formatPrice } = useCatalogApi()
 
     const discountPercentage = computed(() => {
@@ -39,6 +48,10 @@
         if (!props.item.onSale) return props.item.price
         return props.item.price * (1 - discountPercentage.value / 100)
     })
+
+    const handleShowNotification = () => {
+        emit('showNotification')
+    }
 </script>
 <style lang="scss" scoped>
     .shop__catalog-item {

@@ -1,6 +1,16 @@
 <template>
-    <button class="catalog__item-btn">ADD TO CART</button>
+    <button class="catalog__item-btn" @click="addToCart">ADD TO CART</button>
 </template>
+
+<script lang="ts" setup>
+    const emit = defineEmits<{
+        (e: 'itemAdded'): void
+    }>()
+
+    const addToCart = () => {
+        emit('itemAdded')
+    }
+</script>
 
 <style lang="scss" scoped>
     .catalog__item-btn {

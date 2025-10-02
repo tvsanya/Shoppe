@@ -13,7 +13,7 @@
             :alt="props.alt || 'Изображение товара'"
             class="catalog__item-img catalog__item-img--placeholder"
         />
-        <CatalogImgBtn class="catalog__button" />
+        <CatalogImgBtn class="catalog__button" @item-added="handleItemAdded" />
     </div>
 </template>
 
@@ -30,12 +30,20 @@
         alt: '',
     })
 
+    const emit = defineEmits<{
+        (e: 'showNotification'): void
+    }>()
+
     const imageError = ref(false)
 
     const handleImageError = (event: Event) => {
         imageError.value = true
         const imgElement = event.target as HTMLImageElement
         imgElement.src = placeholderImage
+    }
+
+    const handleItemAdded = () => {
+        emit('showNotification')
     }
 </script>
 
