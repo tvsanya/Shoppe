@@ -119,7 +119,7 @@
         }
 
         @media (max-width: $breakpoints-s) {
-            --p-select-dropdown-width: 8%;
+            --p-select-dropdown-width: 10%;
         }
     }
 

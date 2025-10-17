@@ -20,7 +20,7 @@
     import type { Swiper as SwiperType } from 'swiper'
     import 'swiper/css'
     import 'swiper/css/pagination'
-    import CarouselItem from '@/components/CarouselItem.vue'
+    import CarouselItem from '@/components/carousel/CarouselItem.vue'
 
     interface PaginationProps {
         size?: string

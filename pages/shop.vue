@@ -25,8 +25,8 @@
 <script lang="ts" setup>
     import { ref } from 'vue'
     import { useMobile } from '@/composables/useMobile'
-    import FilterToggleButton from '@/components/FilterToggleButton.vue'
-    import FilterPopup from '@/components/FilterPopup.vue'
+    import FilterToggleButton from '@/components/filters/FilterToggleButton.vue'
+    import FilterPopup from '@/components/filters/FilterPopup.vue'
 
     const { isMobile } = useMobile()
 

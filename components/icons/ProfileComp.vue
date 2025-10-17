@@ -14,9 +14,9 @@
 </template>
 
 <style lang="scss" scoped>
-@media (max-width: $breakpoints-l) {
-    svg path:nth-child(2) {
-        fill: none;
+    @media (max-width: $breakpoints-l) {
+        svg path:nth-child(2) {
+            fill: none;
+        }
     }
-}
 </style>

@@ -62,8 +62,13 @@
     }
 
     .popup__close {
+        color: #000000;
         cursor: pointer;
-        background: none;
-        border: none;
+        background: transparent;
+        transition: color 0.3 ease;
+
+        &:hover {
+            color: #d82700;
+        }
     }
 </style>

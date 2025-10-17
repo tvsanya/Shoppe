@@ -24,7 +24,7 @@
 <script lang="ts" setup>
     import { ref, computed } from 'vue'
     import { useRoute } from 'vue-router'
-    import BurgerMenu from '@/components/BurgerMenu.vue'
+    import BurgerMenu from '@/components/header/BurgerMenu.vue'
     import { useMobile } from '@/composables/useMobile'
 
     const route = useRoute()

@@ -25,7 +25,7 @@
 
 <script lang="ts" setup>
     import { ref, watch, onMounted, onBeforeUnmount } from 'vue'
-    import DefaultInput from '@/components/DefaultInput.vue'
+    import DefaultInput from '@/components/ui/DefaultInput.vue'
 
     const email = ref('')
     const error = ref('')

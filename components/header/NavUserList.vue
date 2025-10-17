@@ -28,10 +28,10 @@
 <script lang="ts" setup>
     import { computed } from 'vue'
     import type { DefineComponent } from 'vue'
-    import SearchComp from '@/components/SearchComp.vue'
-    import ShopCartComp from '@/components/ShopCartComp.vue'
-    import ProfileComp from '@/components/ProfileComp.vue'
-    import LogoutComp from '@/components/LogoutComp.vue'
+    import SearchComp from '@/components/icons/SearchComp.vue'
+    import ShopCartComp from '@/components/icons/ShopCartComp.vue'
+    import ProfileComp from '@/components/icons/ProfileComp.vue'
+    import LogoutComp from '@/components/icons/LogoutComp.vue'
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     type VueComponent = DefineComponent<{}, {}, any>

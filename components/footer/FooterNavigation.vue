@@ -13,9 +13,9 @@
 </template>
 
 <script lang="ts" setup>
-    import FooterNavList from '@/components/FooterNavList.vue'
-    import FooterLogoList from '@/components/FooterLogoList.vue'
-    import FooterDiscript from '@/components/FooterDiscript.vue'
+    import FooterNavList from '@/components/footer/FooterNavList.vue'
+    import FooterLogoList from '@/components/footer/FooterLogoList.vue'
+    import FooterDiscript from '@/components/footer/FooterDiscript.vue'
 </script>
 
 <style lang="scss" scoped>

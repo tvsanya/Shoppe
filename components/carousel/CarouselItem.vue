@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts" setup>
-    import CarouselImg from '@/components/CarouselImg.vue'
+    import CarouselImg from '@/components/carousel/CarouselImg.vue'
 
     interface Props {
         image: string

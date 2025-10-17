@@ -30,10 +30,10 @@
 </template>
 
 <script lang="ts" setup>
-    import SearchComp from '@/components/SearchComp.vue'
-    import CatalogFilterSelect from '@/components/CatalogFilterSelect.vue'
-    import RangeSlider from '@/components/RangeSlider.vue'
-    import FilterCheckbox from '@/components/FilterCheckbox.vue'
+    import SearchComp from '@/components/icons/SearchComp.vue'
+    import CatalogFilterSelect from '@/components/filters/CatalogFilterSelect.vue'
+    import RangeSlider from '@/components/ui/RangeSlider.vue'
+    import FilterCheckbox from '@/components/filters/FilterCheckbox.vue'
     import { useCatalogFilters } from '@/composables/useCatalogFilter'
 
     const { filters } = useCatalogFilters()

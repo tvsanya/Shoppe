@@ -28,9 +28,9 @@
 <script lang="ts" setup>
     import { onMounted, computed, watch, ref } from 'vue'
     import { useCatalogFilters } from '@/composables/useCatalogFilter'
-    import CatalogItem from '@/components/CatalogItem.vue'
-    import Pagination from '@/components/Pagination.vue'
-    import Notification from '@/components/Notification.vue'
+    import CatalogItem from '@/components/catalog/CatalogItem.vue'
+    import Pagination from '@/components/ui/Pagination.vue'
+    import Notification from '@/components/ui/Notification.vue'
 
     const {
         filteredProducts,
