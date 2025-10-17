@@ -4,6 +4,18 @@ export default defineNuxtConfig({
     devtools: { enabled: true },
     modules: ['@nuxt/eslint', '@nuxt/image', '@primevue/nuxt-module'],
     css: ['@/assets/scss/style.scss'],
+    app: {
+        baseURL: process.env.NUXT_APP_BASE_URL || '/',
+        head: {
+            link: [
+                {
+                    rel: 'icon',
+                    type: 'image/x-icon',
+                    href: `${process.env.NUXT_APP_BASE_URL || '/'}favicon.ico`,
+                },
+            ],
+        },
+    },
     build: {
         transpile: ['@vueform/slider'],
     },
