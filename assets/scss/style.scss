@@ -5,15 +5,15 @@
 @use 'placeholders' as *;
 
 .container {
-  width: 100%;
-  margin: 0 auto;
-  max-width: 1440px;
-  padding: 0 96px;
+    width: 100%;
+    max-width: 1440px;
+    padding: 0 96px;
+    margin: 0 auto;
 
-  @media (max-width: $breakpoints-xl) {
-    padding: 0 32px;
-  }
-  @media (max-width: $breakpoints-s) {
-    padding: 0 16px;
-  }
+    @media (max-width: $breakpoints-xl) {
+        padding: 0 32px;
+    }
+    @media (max-width: $breakpoints-s) {
+        padding: 0 16px;
+    }
 }

@@ -1,4 +1,4 @@
-import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { ref, onMounted, onBeforeUnmount, type Ref } from 'vue'
 
 interface UseMobileReturn {
     isMobile: Ref<boolean>
