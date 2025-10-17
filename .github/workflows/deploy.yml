@@ -55,10 +55,10 @@ jobs:
                       ${{ runner.os }}-nuxt-build-
             - name: Install dependencies
               run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
-              name: Create env file
+            - name: Create env file
               run: |
-                    echo "NUXT_PUBLIC_API_BASE_URL=https://fakestoreapi.com" >> .env
-                    echo "NUXT_PUBLIC_API_PRODUCTS_ENDPOINT=/products" >> .env
+                  echo "NUXT_PUBLIC_API_BASE_URL=https://fakestoreapi.com" >> .env
+                  echo "NUXT_PUBLIC_API_PRODUCTS_ENDPOINT=/products" >> .env
             - name: Static HTML export with Nuxt
               run: ${{ steps.detect-package-manager.outputs.manager }} run generate
             - name: Upload artifact
