@@ -44,6 +44,8 @@
 </script>
 
 <style lang="scss" scoped>
+    @use '@/assets/scss/variables.scss' as *;
+
     .shop__catalog-heading {
         margin: 96px 0 40px;
 
