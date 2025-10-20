@@ -1,5 +1,5 @@
-@use 'fonts' as *;
-@use 'reset' as *;
+@import '@/assets/scss/fonts.scss';
+@import '@/assets/scss/reset.scss';
 
 .container {
     width: 100%;
